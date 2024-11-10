@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oluwayanmi Stephen Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        /* Custom styles */
+        @media (min-width: 768px) {
+        .text-center h1 {
+            line-height: 1.2;
+        }
+    }
+
+        /* Custom styles for vertical steps */
+        .vertical-steps {
+            position: relative;
+            padding-left: 20px;
+            border-left: 2px solid #e4e4e4;
+        }
+
+        .vertical-steps .step {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .vertical-steps .step::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #764ba2;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px #e4e4e4;
+        }
+
+        .vertical-steps .step-content {
+            margin-left: 30px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #764ba2; /* Purple color */
+            background-color: #f0f0f0; /* Light gray background */
+            padding: 2px 4px;
+            border-radius: 4px;
+            text-decoration: none; /* Remove underline from link */
+        }
+
+    /* contact */
+    .contact-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 16px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+            text-align: center;
+        }
+
+        .contact-info:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: #93c5fd; /* Light blue color */
+        }
+
+        .contact-icon {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-link:hover .contact-icon {
+            transform: scale(1.2);
+        }
+
+     /* Custom styles for the hamburger menu */
+     .menu-btn {
+            position: relative;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-btn span, .menu-btn::before, .menu-btn::after {
+            content: '';
+            position: absolute;
+            height: 4px;
+            width: 100%;
+            background-color: #333;
+            transition: transform 0.3s ease, top 0.3s ease, bottom 0.3s ease, opacity 0.3s ease;
+        }
+
+        .menu-btn::before, .menu-btn::after {
+            left: 0;
+        }
+
+        .menu-btn::before {
+            top: 0;
+        }
+
+        .menu-btn span {
+            top: 9px;
+        }
+
+        .menu-btn::after {
+            bottom: 0;
+        }
+
+        .menu-btn.open span {
+            opacity: 0;
+        }
+
+        .menu-btn.open::before {
+            top: 9px;
+            transform: rotate(45deg);
+        }
+
+        .menu-btn.open::after {
+            bottom: 9px;
+            transform: rotate(-45deg);
+        }
+
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        #mobile-menu.open {
+            max-height: 300px;
+        }
+        .fade-in {
+            animation: fadeIn 2s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .slide-in {
+            animation: slideIn 1s;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Navigation bar responsive styles */
+        .flex {
+            display: flex;
+        }
+        .flex-col {
+            flex-direction: column;
+        }
+        .space-y-4 > :not(:first-child) {
+            margin-top: 1rem;
+        }
+        .space-x-4 > :not(:first-child) {
+            margin-left: 1rem;
+        }
+        .mt-4 {
+            margin-top: 1rem;
+        }
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .py-4 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        /* project section  */
+        .p-4 {
+        margin-bottom: 1rem; /* Add space between the cards */
+        }
+        .rounded-md {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for better separation */
+        }
+        img {
+            display: block; /* Ensures that images do not cause overflow */
+            max-width: 100%;
+            height: auto; /* Keeps the aspect ratio */
+        }
+        .mt-4 {
+            margin-top: 1rem; /* Consistent spacing */
+        }
+        .shadow-md {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+        }
+
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            list-style: none;
+        }
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e4e4e4;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .timeline > li {
+            position: relative;
+            margin-bottom: 50px;
+        }
+        .timeline > li:before,
+        .timeline > li:after {
+            content: ' ';
+            display: table;
+        }
+        .timeline > li:after {
+            clear: both;
+        }
+        .timeline > li .timeline-panel {
+            position: relative;
+            width: 46%;
+            float: left;
+            left: 2%;
+            padding: 20px;
+            text-align: left;
+            border-radius: 2px;
+            background: #fff;
+            border: 1px solid #d4d4d4;
+        }
+        .timeline > li .timeline-panel:before {
+            position: absolute;
+            top: 26px;
+            right: -15px;
+            display: inline-block;
+            border-top: 15px solid transparent;
+            border-left: 15px solid #d4d4d4;
+            border-right: 0 solid #d4d4d4;
+            border-bottom: 15px solid transparent;
+            content: ' ';
+        }
+        .timeline > li .timeline-panel:after {
+            position: absolute;
+            top: 27px;
+            right: -14px;
+            display: inline-block;
+            border-top: 14px solid transparent;
+            border-left: 14px solid #fff;
+            border-right: 0 solid #fff;
+            border-bottom: 14px solid transparent;
+            content: ' ';
+        }
+        .timeline > li.timeline-inverted > .timeline-panel {
+            float: right;
+            right: 2%;
+            left: 0;
+        }
+        .timeline > li.timeline-inverted > .timeline-panel:before {
+            border-left-width: 0;
+            border-right-width: 15px;
+            left: -15px;
+            right: auto;
+        }
+        .timeline > li.timeline-inverted > .timeline-panel:after {
+            border-left-width: 0;
+            border-right-width: 14px;
+            left: -14px;
+            right: auto;
+        }
+        .timeline .degree {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .timeline > li:hover .degree {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Contact Section Styles */
+        #contact {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 50px;
+        }
+        #contact .contact-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+        #contact .contact-info:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        #contact h3 {
+            margin-bottom: 10px;
+        }
+        #contact p {
+            margin-bottom: 0;
+        }
+        .icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            display: inline-block;
+        }
+
+        /* Custom CSS for article pop up */
+        .hover-popup {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hover-popup:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hover-popup a {
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        .hover-popup:hover a {
+            opacity: 0.9;
+        }
+
+        .article-image {
+            transition: transform 0.3s, opacity 0.3s;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 1rem;
+        }
+
+        .hover-popup:hover .article-image {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .hover-popup h3 {
+            transition: color 0.3s;
+        }
+
+        .hover-popup:hover h3 {
+            color: #007BFF;
+        }
+
+
+        /* Custom CSS for SweetAlert2 */
+        .swal2-popup-custom {
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .swal2-title-custom {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .swal2-content-custom {
+            font-size: 1rem;
+            color: #555;
+        }
+    </style>
+<!-- Custom CSS for SweetAlert2 -->
+<style>
+    .swal2-popup-custom {
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .swal2-title-custom {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+    }
+    .swal2-content-custom {
+        font-size: 1rem;
+        color: #555;
+    }
+</style>
+</head>
+<div class="flex justify-center">
+</div>
+<body class="font-sans bg-gray-100 text-gray-900">
+<!-- Navigation Bar -->
+<nav class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <span class="text-3xl font-bold"><a href="#home">OS.</a></span>
+        </div>
+        <div class="hidden md:flex space-x-4">
+            <ul class="flex space-x-4">
+                <li><a href="#home" class="text-gray-700 hover:text-blue-500">Home</a></li>
+                <li><a href="#about" class="text-gray-700 hover:text-blue-500">About</a></li>
+                <li><a href="#portfolio" class="text-gray-700 hover:text-blue-500">Projects</a></li>
+                <li><a href="#blog" class="text-gray-700 hover:text-blue-500">Blog</a></li>
+                <li><a href="#contact" class="text-gray-700 hover:text-blue-500">Contact</a></li>
+                <li><a href="https://drive.google.com/file/d/1er2HrmScusW0su2stx-ajWYf1PYfLI-C/view?usp=sharing" target="_blank" class="text-gray-700 hover:text-blue-500">Resume</a></li>
+                <li><a href="https://www.linkedin.com/in/oluwayanmi-stephen-42161a1ab/" target="_blank" class="text-gray-700 hover:text-blue-500">LinkedIn</a></li>
+                <li><a href="https://github.com/Oly-Stephen/" target="_blank" class="text-gray-700 hover:text-blue-500">Github</a></li>
+            </ul>
+        </div>
+        <div class="md:hidden">
+            <div id="menu-btn" class="menu-btn">
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden">
+        <ul class="flex flex-col space-y-4 mt-4 px-4">
+            <li><a href="#home" class="text-gray-700 hover:text-blue-500">Home</a></li>
+            <li><a href="#about" class="text-gray-700 hover:text-blue-500">About</a></li>
+            <li><a href="#portfolio" class="text-gray-700 hover:text-blue-500">Projects</a></li>
+            <li><a href="#blog" class="text-gray-700 hover:text-blue-500">Blog</a></li>
+            <li><a href="#contact" class="text-gray-700 hover:text-blue-500">Contact</a></li>
+            <li><a href="https://drive.google.com/file/d/1er2HrmScusW0su2stx-ajWYf1PYfLI-C/view?usp=sharing" target="_blank" class="text-gray-700 hover:text-blue-500">Resume</a></li>
+            <li><a href="https://www.linkedin.com/in/oluwayanmi-stephen-42161a1ab/" target="_blank" class="text-gray-700 hover:text-blue-500">LinkedIn</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<header class="bg-gray-50 py-20">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4">Hi! I'm Oluwayanmi, I love solving problems one line of code at a time.</h1>
+        <div class="space-y-4 md:space-y-0 md:space-x-4">
+            <a href="#contact" class="bg-purple-500 text-white px-6 py-3 rounded-md inline-block">Let's Talk</a>
+            <a href="https://drive.google.com/file/d/1er2HrmScusW0su2stx-ajWYf1PYfLI-C/view?usp=sharing" target="b" class="bg-white text-gray-700 px-6 py-3 rounded-md border border-gray-300 inline-block">Resume</a>
+        </div>
+    </div>
+</header>
+<div class="container mx-auto p-4 text-center">
+    <!-- About Me Section -->
+    <section id="about" class="py-8 fade-in">
+        <h2 class="text-2xl font-semibold">About Me</h2>
+        <p>Versatile and dedicated professional with a strong foundation in backend Java development, customer 
+            service, and graphic design. Known for quickly adapting to organizational goals, I bring a commitment to 
+            excellence, critical thinking, and emotional intelligence to every project. A fast learner with the ability to 
+            work independently and effectively, I am passionate about using my skills to drive impactful results.</p>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-8">
+        <h2 class="text-2xl font-semibold">Skills</h2>
+        <br> 
+        <div class="flex justify-center">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 border border-gray-300 rounded-md">
+                    <h3 class="text-xl font-bold flex items-center"><img src="images/programming_icon.png" alt="Programming Languages" class="icon">Programming Languages</h3>
+                    <p>Python, Java, Javascript</p>
+                </div>
+                <div class="p-4 border border-gray-300 rounded-md">
+                    <h3 class="text-xl font-bold flex items-center"><img src="images/backend_icon.png" alt="Backend Development" class="icon">Backend Development</h3>
+                    <p>Spring Boot, REST APIs, FastAPI </p>
+                </div>
+                <div class="p-4 border border-gray-300 rounded-md">
+                    <h3 class="text-xl font-bold flex items-center"><img src="images/database_icon.png" alt="Database Technologies" class="icon">Database Technologies</h3>
+                    <p>MySQL, MongoDB, PostgreSQL</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section with Vertical Steps -->
+    <section id="experience" class="py-8 bg-white shadow-md rounded-lg">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-semibold text-center mb-6">Experience</h2>
+            <div class="vertical-steps">
+                <!-- Experience: Java Backend Developer -->
+                    <div class="step">
+                        <div class="step-content bg-gray-50 p-6 rounded-lg shadow-sm text-left">
+                            <h2 class="text-xl font-bold mb-2"><span class="highlight">Java Backend Developer (Contract)</span></h2>
+                            <p class="text-gray-700 mb-4"><i class="fas fa-map-marker-alt text-purple-500"></i> Tcompactify Company, Nigeria. Aug 2023 - May 2024</p>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2 pl-4 flex flex-col gap-2">
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Developed end-to-end backend solutions: Built and maintained comprehensive Java-based backend systems for key clients, including a FinTech platform that processed over 2,500 daily transactions efficiently, with a focus on reliability and performance.</span></li>
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Authored comprehensive technical documentation for API endpoints, contributing to improved integration efficiency for developers.</span></li>
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Collaborated with front-end teams to optimize API response time to under 300ms, leading to a 5% increase in client satisfaction.</span></li>
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Optimized backend performance: Enhanced server-side logic and optimized database queries, leading to a 20% improvement in application response time, ensuring a smooth user experience under heavy traffic conditions.</span></li>
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Enhanced security through role-based access control (RBAC), customizing roles for Admin and authenticated users to ensure data integrity.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Experience: Customer Service Representative -->
+                    <div class="step">
+                        <div class="step-content bg-gray-50 p-6 rounded-lg shadow-sm text-left">
+                            <h2 class="text-xl font-bold mb-2"><span class="highlight">Customer Service Representative</span></h2>
+                            <p class="text-gray-700 mb-4"><i class="fas fa-map-marker-alt text-purple-500"></i> Extramile Africa, Nigeria. Jun 2019 - Jul 2021 </p>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2 pl-4 flex flex-col gap-2">
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Handled an average of 50-70 customer inquiries per day through phone, email, and live chat, resolving 85-90% of issues on the first contact.</span></li>
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Received 95% positive feedback from customer satisfaction surveys, consistently exceeding departmental goals.</span></li>
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Collaborated with the technical team to address customer complaints related to technical issues, resulting in a 30% improvement in resolution time.</span></li>
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Conducted training sessions for new hires on CRM software and customer interaction best practices, enhancing team efficiency by 25%.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Experience: Graphic Designer -->
+                    <div class="step">
+                        <div class="step-content bg-gray-50 p-6 rounded-lg shadow-sm text-left">
+                            <h2 class="text-xl font-bold mb-2"><span class="highlight">Graphic Designer</span></h2>
+                            <p class="text-gray-700 mb-4"><i class="fas fa-map-marker-alt text-purple-500"></i> Living Proof Press Ltd, Nigeria.</p>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2 pl-4 flex flex-col gap-2">
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Collaborated with clients to conceptualize and execute effective brand identity designs, ensuring alignment with their vision and goals.</span></li>
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Provided personalized design consultations, guiding clients through the creative process to achieve tailored and impactful visual solutions.</span></li>
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Utilized industry-standard design software, including Adobe Photoshop and Corel Draw, to produce high-quality visuals and graphics.</span></li>
+                                <li class="flex items-center"><span class="flex-shrink-0">•</span><span class="ml-2">Applied advanced design techniques to create visually compelling and professional brand identities.</span></li>
+                            </ul>
+                            <p class="text-gray-700 mt-4"><strong>Tools Used:</strong> Photoshop, Corel Draw, Microsoft Word</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="portfolio" class="py-8">
+            <h2 class="text-2xl font-semibold text-center mb-6">Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project 1 -->
+                <div class="p-4 border border-gray-300 rounded-md">
+                    <div class="bg-white p-4 rounded-md shadow-md">
+                        <h3 class="text-xl font-bold">Ecommerce Website API</h3>
+                        <img src="images/ecom.jpeg" alt="Idea" class="my-4 w-full h-auto">
+                        <p>Java, Spring Boot, PostgreSQL, Spring Security, Jwt Authentication</p>
+                        <div class="mt-4">
+                            <h3 class="text-xl font-bold">Description</h3>
+                            <p>This application enables users to manage accounts, products, orders, carts, and comments. A standout feature is the Collaborative Basket, allowing multiple users to share a basket, add products, and update quantities in real-time for efficient group shopping. The API also includes secure authentication and authorization to ensure a safe shopping experience.</p>
+                            <a href="https://github.com/Oly-Stephen/Idea" target="_blank" class="text-purple-600 hover:text-purple-800 font-bold mt-4 inline-block">GitHub <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="p-4 border border-gray-300 rounded-md">
+                    <div class="bg-white p-4 rounded-md shadow-md">
+                        <h3 class="text-xl font-bold">Customer Relation Management</h3>
+                        <img src="images/customer.jpg" alt="Customer Relation Management" class="my-4 w-full h-auto">
+                        <p>Java, Spring Boot, MySQL, Vaadin</p>
+                        <div class="mt-4">
+                            <h3 class="text-xl font-bold">Description</h3>
+                            <p>This Java application transforms customer relationship management. Imagine a central hub for all your customer interactions and data. It's a CRM powerhouse, streamlining workflows, boosting organization, and skyrocketing customer satisfaction all in one place.</p>
+                            <a href="https://github.com/Oly-Stephen/Customer-Relational-management-Application" target="_blank" class="text-purple-600 hover:text-purple-800 font-bold mt-4 inline-block">GitHub <i class="fas fa-external-link-alt"></i> </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="p-4 border border-gray-300 rounded-md">
+                    <div class="bg-white p-4 rounded-md shadow-md">
+                        <h3 class="text-xl font-bold">Kitchen Timer</h3>
+                        <img src="images/kitchen_timer.png" alt="Kitchen Timer" class="my-4 w-full h-auto">
+                        <p>C++, Arduino Tinkercad</p>
+                        <div class="mt-4">
+                            <h3 class="text-xl font-bold">Description</h3>
+                            <p>This Arduino program creates a user-friendly kitchen timer with an alarm system, allowing you to set and track cooking times with ease through a buttons, complete with a buzzer to alert you when time is up.</p>
+                            <a href="https://github.com/Oly-Stephen/Arduino-kitchen-timer" target="_blank" class="text-purple-600 hover:text-purple-800 font-bold mt-4 inline-block">GitHub <i class="fas fa-external-link-alt"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline" class="py-8">
+            <h2 class="text-2xl font-semibold">Education and Certificate</h2>
+            <br>
+            <ul class="timeline">
+                <li class="slide-in">
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h3 class="timeline-title"><strong>Feb 2024 - Till date</strong></h3>
+                            <p> <span class="highlight">Education</span> Bachelor of Computer Engineering at Vistula University, Warsaw, Poland.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="timeline-inverted slide-in">
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h3 class="timeline-title"><strong>Sep 2021 - July 2023</strong></h3>
+                            <p> <span class="highlight">Education</span> Bachelor of Information Technology Software at Yanka Kupala State University, Grodno, Belarus.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="slide-in">
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h3 class="timeline-title"><strong>June 2024</strong></h3>
+                            <p><span class="highlight">Certificate</span>  Building Real-Time REST APIs with Spring Boot</p>
+                            <a href=https://drive.google.com/file/d/1Wyt1MtI7ZRQL6xCCQPedleVtQ12i3_ts/view?usp=sharing target="_blank" class="text-purple-600 hover:text-purple-800 font-bold mt-4 inline-block">
+                                View Certificate <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="timeline-inverted slide-in">
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h3 class="timeline-title"><strong>Oct 2024</strong></h3>
+                            <p><span class="highlight">Certificate</span>  Python Data Structures & Algorithms + LEETCODE</p>
+                            <a href=https://drive.google.com/file/d/1wnnwqMlXDOvyq1enkd5NPHQ6gPHdB05T/view?usp=sharing target="_blank" class="text-purple-600 hover:text-purple-800 font-bold mt-4 inline-block">
+                                View Certificate <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+    <!-- Article Section -->
+    <section id="blog" class="py-8">
+        <h2 class="text-2xl font-semibold">Articles</h2>
+        <br>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="p-4 border border-gray-300 rounded-md slide-in hover-popup">
+                <a href="https://medium.com/cub3d/unleashing-the-fun-in-programming-1abafae818ca" target="_blank">
+                    <img src="images/image1" alt="" class="article-image">
+                    <h3 class="text-xl font-bold">Unleashing the Fun in Programming</h3>
+                </a>
+            </div>
+            <div class="p-4 border border-gray-300 rounded-md slide-in hover-popup">
+                <a href="https://medium.com/new-writers-welcome/4-risks-you-should-take-as-a-developer-2617236da5ba" target="_blank">
+                    <img src="images/image2" alt="" class="article-image">
+                    <h3 class="text-xl font-bold">4 Risks You Should Take as a Developer</h3>
+                </a>
+            </div>
+            <div class="p-4 border border-gray-300 rounded-md slide-in hover-popup">
+                <a href="https://medium.com/@stephenoluwayanmi/10-tips-for-writing-clean-and-efficient-code-d22665dc9029" target="_blank">
+                    <img src="images/image3" alt="" class="article-image">
+                    <h3 class="text-xl font-bold">10 Tips for Writing Clean and Efficient Code</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-8">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-semibold text-center">Contact</h2>
+            <br>
+            <div class="flex justify-center">
+                <div class="contact-info text-center">
+                    <h3 class="text-xl"><strong>Email</strong></h3>
+                    <a href="mailto:example@example.com" class="contact-link">
+                        <p id="email" class="break-words">stephenoluwayanmi@gmail.com</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <br>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-md py-4">
+        <div class="container mx-auto text-center text-gray-600">
+            <p>&copy; 2024 Oluwayanmi Stephen. All rights reserved.</p>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
+
+<!-- Add SweetAlert2 Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+<script>
+    // Function to copy text to clipboard
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Copied to Clipboard!',
+                text: `You have successfully copied: ${text}`,
+                background: '#f9fafb',
+                color: '#333',
+                iconColor: '#4CAF50',
+                showConfirmButton: false,
+                timer: 2000,
+                customClass: {
+                    popup: 'swal2-popup-custom',
+                    title: 'swal2-title-custom',
+                    content: 'swal2-content-custom'
+                }
+            });
+        }, function(err) {
+            console.error('Could not copy text: ', err);
+        });
+    }
+
+    // Add event listeners to email and phone elements
+    document.getElementById('email').addEventListener('click', function() {
+        copyToClipboard(this.textContent);
+    });
+
+    // Hamburger toggle for mobile
+    document.getElementById('menu-btn').addEventListener('click', function () {
+        var menu = document.getElementById('mobile-menu');
+        var btn = document.getElementById('menu-btn');
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('open');
+        btn.classList.toggle('open');
+    });
+    // is this working?
+</script>
+
